@@ -7,7 +7,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum UserRole {
+    USER
+    ADMIN
+}
 model User {
+    role UserRole @default(USER)
     id String @id @default(auto()) @map("_id") @db.ObjectId
     name String
     email String? @unique
