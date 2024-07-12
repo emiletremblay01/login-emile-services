@@ -23,7 +23,9 @@ model User {
 }
 
 type Website {
+  name String
+  infos String?
   url String
-  nip String
+  nip String @default("")
 }
 
