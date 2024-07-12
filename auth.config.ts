@@ -1,6 +1,5 @@
 import Credentials from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
-import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/schemas";
 import { getUserByEmail } from "./data/user";
 
@@ -17,16 +16,11 @@ export default {
         const { email, password } = validatedFields.data;
 
         const user = await getUserByEmail(email);
-        if (!user || !user.hashedPassword) {
+        if (!user || !user.password) {
           return null;
         }
 
-        const passwordsMatch = await bcrypt.compare(
-          password,
-          user.hashedPassword
-        );
-
-        if (!passwordsMatch) {
+        if (!(user.password === password)) {
           return null;
         }
 

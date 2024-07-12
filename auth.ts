@@ -1,14 +1,10 @@
-import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import prismadb from "@/lib/prismadb";
-import { getUserById } from "./data/user";
-import { UserRole } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import NextAuth from "next-auth";
 
-import Credentials from "next-auth/providers/credentials";
 import { LoginSchema } from "@/schemas";
+import Credentials from "next-auth/providers/credentials";
 import { getUserByEmail } from "./data/user";
-import bcrypt from "bcryptjs";
 
 export const {
   handlers: { GET, POST },
@@ -28,14 +24,11 @@ export const {
         const { email, password } = validatedFields.data;
 
         const user = await getUserByEmail(email);
-        if (!user || !user.hashedPassword) {
+        if (!user || !user.password) {
           return null;
         }
 
-        const passwordsMatch = await bcrypt.compare(
-          password,
-          user.hashedPassword
-        );
+        const passwordsMatch = password === user.password;
 
         if (!passwordsMatch) {
           return null;
