@@ -17,7 +17,7 @@ model User {
     name String
     websites Website[]
     email String? @unique
-    hashedPassword String?
+    password String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
