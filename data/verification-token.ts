@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismadb";
 
 export async function getVerificationTokenByToken(token: string) {
   try {
-    const verificationToken = await prismadb.verificationToken.findUnique({
+    const verificationToken = await prismadb.verificationToken.findFirst({
       where: { token },
     });
     return verificationToken;
