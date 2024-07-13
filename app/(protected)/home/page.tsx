@@ -30,7 +30,7 @@ export default async function HomePage() {
           className=""
           action={async () => {
             "use server";
-            await signOut();
+            await signOut({ redirectTo: "/" });
           }}
         >
           <Button type="submit">Sign out</Button>
