@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { getUserByEmail } from "@/data/user";
 
 import Link from "next/link";
-export default async function SettingsPage() {
+export default async function HomePage() {
   const session = await auth();
 
   const email = session?.user.email;
