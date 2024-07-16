@@ -1,18 +1,12 @@
-import { headers } from "next/headers";
+import { type NextRequest } from "next/server";
 
-export async function GET(request: Request) {
-  const headersList = headers();
-  const referer = headersList.get("referer");
-  console.log(referer);
-  return new Response(
-    JSON.stringify({
-      referer,
-    }),
-    {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+export function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const nextUrl = request.nextUrl;
+  console.log(nextUrl);
+  const query = searchParams.get("nip");
+  if (!query) {
+    return new Response("Missing query parameter NIP", { status: 400 });
+  }
+  return new Response(`Query parameter NIP is: ${query}`);
 }
