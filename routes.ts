@@ -3,7 +3,7 @@
  * An array of public routes that do not require authentication
  * @type {string[]}
  */
-export const publicRoutes = ["/"];
+export const publicRoutes = ["/", "/api/unlock"];
 
 /**
  * @description Auth routes
