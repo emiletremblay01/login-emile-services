@@ -1,18 +1,19 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { isNipOk } from "@/data/user";
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const origin = request.nextUrl.origin;
-    console.log("origin", origin);
-    const nip = searchParams.get("nip");
+    const body = await request.json();
+    const { nip, url } = body;
 
     if (!nip) {
-      return new NextResponse("Missing query parameter NIP", { status: 400 });
+      return new NextResponse("Missing nip property in body", { status: 400 });
     }
 
-    console.log("nip", nip);
-    const nipOk = isNipOk(nip, origin);
+    if (!url) {
+      return new NextResponse("Missing url property in body", { status: 400 });
+    }
+
+    const nipOk = await isNipOk(nip, url);
 
     if (!nipOk) {
       return new NextResponse("Invalid NIP", { status: 403 });
