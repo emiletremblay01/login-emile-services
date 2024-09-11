@@ -49,7 +49,11 @@ export const isNipOk = async (nip: string, origin: string) => {
       }
     });
 
-    return website?.nip === nip;
+    if (website?.nip !== nip) {
+      return false;
+    }
+
+    return user;
   } catch (error) {
     console.log(error);
     return false;

@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse("Invalid NIP", { status: 403 });
     }
 
-    return new NextResponse("Nip ok!", { status: 200 });
+    return NextResponse.json(nipOk);
   } catch (error) {
     console.log(error);
     return new NextResponse("An error occurred!", { status: 500 });
